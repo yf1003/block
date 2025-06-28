@@ -19,10 +19,6 @@ export default class CubeBase extends MatrixBodyBase {
     @property(cc.Node)
     private block: cc.Node = null
 
-    @property(cc.Material)
-    public MaterialEmpty: cc.Material = null;
-    @property(cc.Material)
-    public MaterialGray: cc.Material = null;
 
 
     protected mIsGray: boolean = false;
@@ -105,10 +101,10 @@ export default class CubeBase extends MatrixBodyBase {
     }
 
     public refershGray() {
-        if (this.mIsGray)
-            this.SpriteUp.customMaterial = this.MaterialGray
-        else
-            this.SpriteUp.customMaterial = this.MaterialEmpty
+        // if (this.mIsGray)
+        //     this.SpriteUp.customMaterial = this.MaterialGray
+        // else
+        //     this.SpriteUp.customMaterial = this.MaterialEmpty
     }
 
     public showShadow(color: CubeColorType): void {
