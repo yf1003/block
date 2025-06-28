@@ -1,0 +1,1 @@
+module.exports={title:"Playable Build",playable:"素材",options:{packDataJS:"打包DataJS",packControls:"打包Controls参数面板",packPresetTest:"额外打多一个预设测试包",rulePackControls:"要打包参数面板需要开启Debug模式"},description:"把WebMobile转为Playable"};

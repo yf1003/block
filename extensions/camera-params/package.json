@@ -1,0 +1,40 @@
+{
+    "$schema": "./@types/schema/package/index.json",
+    "package_version": 2,
+    "name": "camera-params",
+    "version": "1.0.0",
+    "author": "hubluesky",
+    "editor": ">=3.8.2",
+    "scripts": {
+        "preinstall": "node ./scripts/preinstall.js",
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "description": "i18n:camera-params.description",
+    "main": "./dist/main.js",
+    "devDependencies": {
+        "@cocos/creator-types": "^3.8.2",
+        "@types/node": "^18.17.1"
+    },
+    "contributions": {
+        "inspector": {
+            "section": {
+                "node": {
+                    "CameraConfigManager": "./dist/CameraConfigManager.js"
+                }
+            }
+        },
+        "messages": {
+            "getConfigData": {
+                "methods": [
+                    "getConfigData"
+                ]
+            },
+            "setConfigData": {
+                "methods": [
+                    "setConfigData"
+                ]
+            }
+        }
+    }
+}

@@ -1,12 +1,10 @@
 {
-  "name": "test",
-  "uuid": "60e158fd-a51b-408f-a6b1-cadcb944619b",
+  "name": "external-project",
+  "uuid": "07d1b1b4-9402-4d8a-812a-f48a38193d96",
   "creator": {
-    "version": "3.8.2",
-    "registry": {
-      "remote": {}
-    },
-    "dependencies": {
-    }
+    "version": "3.8.2"
+  },
+  "devDependencies": {
+    "mvplayable": "^0.0.2"
   }
 }

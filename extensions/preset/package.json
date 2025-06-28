@@ -1,0 +1,58 @@
+{
+    "package_version": 2,
+    "version": "1.0.0",
+    "name": "presets",
+    "description": "i18n:presets.description",
+    "main": "./dist/presets.js",
+    "dependencies": {
+        "chokidar": "^3.5.3"
+    },
+    "devDependencies": {
+        "@types/node": "^16.0.1"
+    },
+    "panels": {
+        "default": {
+            "title": "i18n:presets.name",
+            "type": "dockable",
+            "main": "dist/panels/default",
+            "size": {
+                "min-width": 400,
+                "min-height": 300,
+                "width": 1024,
+                "height": 600
+            }
+        }
+    },
+    "contributions": {
+        "menu": [
+            {
+                "path": "i18n:menu.panel",
+                "label": "i18n:presets.name",
+                "message": "open-panel"
+            }
+        ],
+        "messages": {
+            "open-panel": {
+                "methods": [
+                    "openPanel"
+                ]
+            },
+            "get-config-path": {
+                "methods": [
+                    "getConfigPath"
+                ]
+            },
+            "save-preset-config":{
+                "methods": [
+                    "savePresetConfig"
+                ]
+            }
+        }
+    },
+    "author": "Cocos Creator",
+    "editor": ">=3.8.0",
+    "scripts": {
+        "build": "tsc -b",
+        "watch": "tsc -w"
+    }
+}
