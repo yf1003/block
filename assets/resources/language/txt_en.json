@@ -1,0 +1,9 @@
+{
+	"version":"1.0",
+	"name":"英文翻译表",
+	"list":[
+		{"key":50847,"value":"<color=#e20606>[]</c><color=#2d6aad> promoted</c> <color=#e20606>[]</c><color=#2d6aad> to</c> <color=#8bdf05>[]</c>"},
+		{"key":50848,"value":"<color=#e20606>[]</c><color=#2d6aad> demoted</c> <color=#e20606>[]</c><color=#2d6aad> to</c> <color=#8bdf05>[]</c>"},
+		{"key":50849,"value":"<color=#e20606>[]</c><color=#2d6aad> kicked</c> <color=#e20606>[]</c><color=#2d6aad> from the guild</c>"}
+	]
+}

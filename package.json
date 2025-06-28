@@ -1,0 +1,12 @@
+{
+  "name": "test",
+  "uuid": "60e158fd-a51b-408f-a6b1-cadcb944619b",
+  "creator": {
+    "version": "3.8.2",
+    "registry": {
+      "remote": {}
+    },
+    "dependencies": {
+    }
+  }
+}
