@@ -26,9 +26,6 @@ export default class GameUi extends cc.Component implements IGameState {
     public LabelMaxScore: cc.Label = null;
     @property(cc.Button)
     public ButtonReplay: cc.Button = null;
-
-    @property(cc.Prefab)
-    public EffectLevelUp: cc.Prefab = null;
     @property(cc.Node)
     private loveEffect: cc.Node = null;
 
@@ -125,30 +122,31 @@ export default class GameUi extends cc.Component implements IGameState {
 
 
     public showLevelUp() {
-        let levelup = cc.instantiate(this.EffectLevelUp);
-        this.node.addChild(levelup);
+        return
+        // let levelup = cc.instantiate(this.EffectLevelUp);
+        // this.node.addChild(levelup);
 
-        GameWorld.IncreaseLock();
+        // GameWorld.IncreaseLock();
 
-        // 使用新的 tween API 替代旧的 Action API
-        this.scheduleOnce(() => {
-            GameWorld.ReduceLock();
+        // // 使用新的 tween API 替代旧的 Action API
+        // this.scheduleOnce(() => {
+        //     GameWorld.ReduceLock();
 
-            // 闪烁效果
-            const duration = 0.3;
-            const times = 4;
-            const interval = duration / times / 2;
+        //     // 闪烁效果
+        //     const duration = 0.3;
+        //     const times = 4;
+        //     const interval = duration / times / 2;
 
-            let count = 0;
-            const blink = () => {
-                if (count >= times * 2) return;
+        //     let count = 0;
+        //     const blink = () => {
+        //         if (count >= times * 2) return;
 
-                // this.LabelTargetScore.node.active = count % 2 === 0;
-                count++;
-                this.scheduleOnce(blink, interval);
-            };
+        //         // this.LabelTargetScore.node.active = count % 2 === 0;
+        //         count++;
+        //         this.scheduleOnce(blink, interval);
+        //     };
 
-            blink();
-        }, 1.2);
+        //     blink();
+        // }, 1.2);
     }
 }

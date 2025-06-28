@@ -173,7 +173,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 800,
+      "x": 450,
       "y": 800,
       "z": 0
     },
@@ -395,7 +395,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 900,
       "height": 1600
     },
     "_anchorPoint": {
@@ -550,7 +550,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 900,
       "height": 1600
     },
     "_anchorPoint": {
@@ -104947,7 +104947,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 900,
       "height": 1600
     },
     "_anchorPoint": {
@@ -107390,7 +107390,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 900,
       "height": 200
     },
     "_anchorPoint": {
@@ -107455,7 +107455,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 900,
       "height": 1600
     },
     "_anchorPoint": {
@@ -107647,10 +107647,6 @@
     "ButtonReplay": {
       "__id__": 7959
     },
-    "EffectLevelUp": {
-      "__uuid__": "ded15361-09b1-42ad-b36c-d8a86e948eb6",
-      "__expectedType__": "cc.Prefab"
-    },
     "loveEffect": {
       "__id__": 7822
     },
@@ -107681,7 +107677,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1600,
+      "width": 900,
       "height": 1600
     },
     "_anchorPoint": {
