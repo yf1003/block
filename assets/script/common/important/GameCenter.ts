@@ -1,5 +1,3 @@
-import UserData from "../multiPlatform/login/UserData";
-import SaveManager from "../save/SaveManager";
 import LogTool from "../tool/LogTool";
 import BaseManager, { SystemType } from "./BaseManager";
 import * as cc from "cc";
@@ -49,21 +47,6 @@ class GameCenter extends BaseManager {
         return this.mGameRaidoType;
     }
 
-    /**
-     * 用户信息
-     */
-    private mUserData: UserData = new UserData();
-    public get UserData(): UserData {
-        return this.mUserData;
-    }
-
-    /**
-     * 好友信息
-     */
-    private mFriendUserDataArray: Array<UserData> = [];
-    public get FriendUserDataArray(): Array<UserData> {
-        return this.mFriendUserDataArray;
-    }
 
     /**
      * 是否第一次打开App
@@ -87,15 +70,10 @@ class GameCenter extends BaseManager {
         LogTool.Log("GameCenter Start Succeed");
     }
     public ready(): void {
-
-        this.mIsFirstOpenApp = SaveManager.getBool(GameCenter.IsFristOpenAppKey, this.mIsFirstOpenApp);
-        SaveManager.setBool(GameCenter.IsFristOpenAppKey, false);
-
         LogTool.Log("GameCenter Ready Succeed");
     }
     public close(): void {
         LogTool.Log("GameCenter Close Succeed");
-        SaveManager.setBool(GameCenter.IsFristOpenAppKey, false);
     }
 
     public checkScreen(): void {
@@ -125,20 +103,5 @@ class GameCenter extends BaseManager {
         }
     }
 
-    /**
-     * 清空好友
-     */
-    public clearFriend(): void {
-        this.mFriendUserDataArray = [];
-    }
-
-    /**
-     * 添加好友数据
-     * @param userData 
-     */
-    public addFriend(userData: UserData): void {
-        if (userData)
-            this.mFriendUserDataArray.push(userData);
-    }
 }
 export default (GameCenter.instance);

@@ -1,6 +1,5 @@
 import * as cc from 'cc'
 import ExtendButton from "../common/extend/ExtendButton";
-import DataManager from "../common/important/DataManager";
 import ContextPool from "../common/tool/context/ContextPool";
 import LayerBase from "../expand/ui/LayerBase";
 import GameLevelData from "./GameLevelData";
@@ -41,7 +40,6 @@ export default class GameUi extends cc.Component implements IGameState {
             UserData.maxScore = this.mScore;
             this.LabelMaxScore.string = UserData.maxScore.toString();
         }
-        DataManager.Score = this.mScore;
         this.DynamicAddScore.TargetScore = this.mScore;
     }
 

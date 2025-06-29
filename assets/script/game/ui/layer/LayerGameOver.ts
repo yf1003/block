@@ -1,10 +1,7 @@
 import * as cc from 'cc'
 import ExtendButton from "../../../common/extend/ExtendButton";
-import DataManager from "../../../common/important/DataManager";
-import ValueData from "../../../expand/base/ValueData";
 import LayerBase from "../../../expand/ui/LayerBase";
 import GameUi from "../../GameUi";
-import LocalCommon from "../../config/LocalCommon";
 import { SceneType } from "../scene/SceneType";
 const { ccclass, property } = cc._decorator;
 @ccclass
@@ -30,8 +27,7 @@ export default class LayerGameOver extends LayerBase {
 
 
     public initOver(gameui: GameUi) {
-        let score = DataManager.Score;
         this.LabelNowScore.string = gameui.Score.toString();
-        this.LabelBestScore.string = "Best:" + score;
+        // this.LabelBestScore.string = "Best:" + ;
     }
 }

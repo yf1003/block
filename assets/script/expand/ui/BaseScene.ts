@@ -1,5 +1,4 @@
 import * as cc from "cc";
-import AddtionCenter from "../../common/multiPlatform/MultiPlatformManager";
 import GameTool from "../../common/tool/GameTool";
 import LogTool from "../../common/tool/LogTool";
 import LayerBase, { LayerShowType, MainZindex } from "./LayerBase";
@@ -43,8 +42,6 @@ export default  class BaseScene extends cc.Component {
             this.closeTop();
             return;
         }
-        if (this.onKeyDownCallBack())
-            AddtionCenter.close();
     }
 
     public insert(layer: LayerBase, zIndex: MainZindex, hideBefore: boolean = true): boolean {

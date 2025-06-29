@@ -1,5 +1,4 @@
 import { _decorator } from 'cc';
-import { ExtendString } from "../extend/ExtendString";
 
 export default class LogTool {
 //    /**

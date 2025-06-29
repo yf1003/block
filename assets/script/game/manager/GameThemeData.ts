@@ -1,5 +1,4 @@
 import * as cc from "cc";
-import SaveManager from "../../common/save/SaveManager";
 import GameTool from "../../common/tool/GameTool";
 import { CubeColorType } from "../config/LocalCommon";
 
@@ -188,10 +187,7 @@ export default class GameThemeData {
     }
 
     public read() {
-        this.mModeType = SaveManager.getData(GameThemeData.SAVE_THEMT_KEY, this.mModeType);
     }
     public save() {
-        SaveManager.setData(GameThemeData.SAVE_THEMT_KEY, this.mModeType);
-        SaveManager.save();
     }
 }
