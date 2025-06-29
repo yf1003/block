@@ -1,0 +1,1 @@
+"use strict";module.exports={title:"素材配置",description:"对lang和gameConfig的excel文件转换成对应的json格式"};

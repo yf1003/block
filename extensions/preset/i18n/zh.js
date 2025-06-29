@@ -1,0 +1,1 @@
+"use strict";module.exports={name:"预设",send_to_panel:"发送消息给面板",description:"预设扩展面板"};

@@ -1,0 +1,1 @@
+"use strict";module.exports={title:"PlayableConfig",description:"Convert the excel files of lang and gameConfig into the corresponding JSON format"};

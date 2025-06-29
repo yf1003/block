@@ -1,0 +1,117 @@
+{
+    "package_version": 2,
+    "version": "1.0.0",
+    "name": "playable-config",
+    "title": "i18n:playable-config.title",
+    "description": "i18n:playable-config.description",
+    "main": "./dist/main.js",
+    "devDependencies": {
+        "@types/node": "^16.0.1"
+    },
+    "author": "hubluesky",
+    "editor": ">=3.3.0",
+    "scripts": {
+        "build": "tsc -b",
+        "watch": "tsc -w"
+    },
+    "contributions": {
+        "profile": {
+            "editor": {
+                "langConfigDevtool": {
+                    "label": "语言配置表转换工具"
+                },
+                "langConfigPath": {
+                    "default": "project://assets/resources/config/languages.json",
+                    "label": "语言配置表"
+                },
+                "gameConfigDevtool": {
+                    "label": "素材配置表转换工具"
+                },
+                "gameConfigPath": {
+                    "default": "project://assets/resources/config/gameConfig.json",
+                    "label": "素材配置表"
+                },
+                "gameInterfacePath": {
+                    "default": "project://assets/scripts/GameConfig.ts",
+                    "label": "素材配置声明文件"
+                },
+                "gameInterfaceConfigScript": {
+                    "default": "//此文件是自动生成，请不要修改哟！ \nimport { GameConfigManager } from \"framework/playable/configManagers/GameConfigManager\"; \nexport default interface GameConfig {\n${tsConfig}\n} \nexport const gameConfig = GameConfigManager.getConfigValue<GameConfig>(); \nexport const gameFlatConfig = GameConfigManager.getFlatConfigValue<GameConfig>();\ndeclare global {\nvar CC_PROJECTNAME: string;\n}\nglobalThis.CC_PROJECTNAME = \"${projectName}\";",
+                    "label": "素材配置声明文件脚本"
+                },
+                "presetConfigPath": {
+                    "default": "project://assets/resources/config/presetConfig.json",
+                    "label": "预设配置表"
+                },
+                "cameraConfigPath": {
+                    "default": "project://assets/resources/config/cameraConfig.json",
+                    "label": "相机配置表"
+                }
+            }
+        },
+        "preferences": {
+            "properties": {
+                "langConfigDevtool": {
+                    "ui": "ui-file",
+                    "value": "E:/workspace",
+                    "attributes": {
+                        "value": "E:/workspace",
+                        "type": "directory"
+                    }
+                },
+                "langConfigPath": {
+                    "ui": "ui-file",
+                    "attributes": {
+                        "type": "file",
+                        "extensions": "json",
+                        "protocols": "project"
+                    }
+                },
+                "gameConfigDevtool": {
+                    "ui": "ui-file",
+                    "attributes": {
+                        "type": "directory"
+                    }
+                },
+                "gameConfigPath": {
+                    "ui": "ui-file",
+                    "attributes": {
+                        "type": "file",
+                        "extensions": "json",
+                        "protocols": "project"
+                    }
+                },
+                "gameInterfacePath": {
+                    "ui": "ui-file",
+                    "attributes": {
+                        "type": "file",
+                        "extensions": "ts",
+                        "protocols": "project"
+                    }
+                },
+                "gameInterfaceConfigScript": {
+                    "ui": "ui-textarea",
+                    "attributes": {
+                        "rows": 20
+                    }
+                },
+                "presetConfigPath": {
+                    "ui": "ui-file",
+                    "attributes": {
+                        "type": "file",
+                        "extensions": "json",
+                        "protocols": "project"
+                    }
+                },
+                "cameraConfigPath": {
+                    "ui": "ui-file",
+                    "attributes": {
+                        "type": "file",
+                        "extensions": "json",
+                        "protocols": "project"
+                    }
+                }
+            }
+        }
+    }
+}

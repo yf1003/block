@@ -1,0 +1,21 @@
+#app {
+    color: var(--color-normal-contrast-weakest);
+    margin: auto;
+    width: 180px;
+}
+#content {
+    overflow-y: auto; /* the auto value is similar to scroll, but it adds scrollbars only when necessary */
+    word-break: keep-all; /* this is optional, so the words keep in one line */
+    white-space: nowrap; /* this is optional, so the div can expands to the side */
+    border: 10px;
+}
+
+.preset { 
+    position:relative; 
+    margin-bottom:20px; 
+}
+
+.option { 
+    position:relative; 
+    margin-bottom:20px; 
+}

@@ -1,0 +1,34 @@
+{
+    "package_version": 2,
+    "version": "1.0.0",
+    "name": "language",
+    "description": "i18n:language.description",
+    "main": "./dist/main.js",
+    "devDependencies": {
+        "@types/node": "^16.0.1"
+    },
+    "author": "hubluesky",
+    "editor": ">=3.3.2",
+    "scripts": {
+        "build": "tsc -b",
+        "watch": "tsc -w"
+    },
+    "contributions": {
+        "inspector": {
+            "section": {
+                "node": {
+                    "AbstractLocalizeLabel": "./dist/AbstractLocalizeLabel.js",
+                    "InduceButtonAction": "./dist/InduceAction.js",
+                    "InduceRetryAction": "./dist/InduceRetryAction.js"
+                }
+            }
+        },
+        "messages": {
+            "getLangConfigData": {
+                "methods": [
+                    "getLangConfigData"
+                ]
+            }
+        }
+    }
+}

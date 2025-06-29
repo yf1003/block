@@ -1,0 +1,1 @@
+module.exports={title:"Playable Build",playable:"Playable",options:{packDataJS:"pack the data.js file",packControls:"pack Controls panel",packPresetTest:"Hit an extra preset test pack",rulePackControls:"To package the parameter panel you need to check Debug mode"},description:"Translate WebMobile to Playable"};
