@@ -330,6 +330,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
                 }
                 this.mTouchGroup.createNewGroup();
                 this.mTouchGroup.runInsertAction();
+                // this.mTouchGroup.hideGroup();
 
                 this.mIsPutDown = true;
                 this.mIsCheckGroup = true;

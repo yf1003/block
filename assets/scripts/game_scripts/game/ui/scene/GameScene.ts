@@ -16,9 +16,9 @@ export default class GameScene extends BaseScene {
             GameStart.Init();
             GameStart.Start();
             GameStart.Ready();
-            UserData.init()
             GameScene.isInit = true
         }
+        UserData.init()
         this.init(SceneType.GameScene);
     }
 }

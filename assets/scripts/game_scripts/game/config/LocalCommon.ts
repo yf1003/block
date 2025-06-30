@@ -125,6 +125,8 @@ export default class LocalCommon {
      */
     public static readonly CUBE_HEIGHT = 106;
 
+    public static readonly GROUP_SCALE = 0.5;
+
 
     public static readonly AWARD_SCORE_MULTI: number = 4;
     public static readonly LEVEL_TARGET_SCORE: number = 300;

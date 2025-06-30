@@ -22,7 +22,6 @@ export default class DynamicAddScore extends cc.Component {
         this.LabelScore.string = this.mTargetScore.toString();
     }
 
-
     public update(dt): void {
         let tempScore = parseInt(this.LabelScore.string);
         if (tempScore === this.mTargetScore)

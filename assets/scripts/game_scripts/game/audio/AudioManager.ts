@@ -1,5 +1,6 @@
 import * as cc from "cc";
 import { DEBUG } from "cc/env";
+import { audioManager } from "mvplayable";
 const { ccclass, property } = cc._decorator;
 
 const trace = function (...args) {
@@ -23,13 +24,13 @@ class AudioState {
 
 
 export enum EAudioType {
-    bgm = "audio/bm_bgm",
-    click = "audio/sm_click",
-    great = "audio/sm_great",
-    put = "audio/sm_put",
-    synthesis1 = "audio/sm_synthesis1",
-    synthesis2 = "audio/sm_synthesis2",
-    wow = "audio/sm_wow",
+    bgm = "bm_bgm",
+    click = "sm_click",
+    great = "sm_great",
+    put = "sm_put",
+    synthesis1 = "sm_synthesis1",
+    synthesis2 = "sm_synthesis2",
+    wow = "sm_wow",
 }
 
 
@@ -43,12 +44,8 @@ export class AudioManager extends cc.Component {
 
         AudioManager.ins = this;
         cc.director.addPersistRootNode(this.node)
-        this.playAudio(EAudioType.bgm, true)
     }
 
-    onDestroy(): void {
-        this.stopAudio(EAudioType.bgm)
-    }
 
     private _states = new Map<string, AudioState>(); //只存储循环播放的音频
 
@@ -96,26 +93,28 @@ export class AudioManager extends cc.Component {
      * @returns
      */
     public playAudio(audioResourcePath: string, loop?: boolean, volume?: number, params?: any) {
-        DEBUG && trace(`加载音频资源：${audioResourcePath}`);
-        let audioState = this._getOrCreateState(audioResourcePath);
-        audioState.state = 0;
+        audioManager.playEffect(audioResourcePath);
 
-        cc.resources.load(audioResourcePath, cc.AudioClip, (err, audioRes) => {
-            if (err || !cc.isValid(this, true)) {
-                trace(`playAudio, loadAsset error`, err);
-                return;
-            }
-            let audioState = this._states.get(audioResourcePath);
-            if (audioState.state == 2) {
-                DEBUG && trace(`${audioResourcePath} 已经被设置为停止状态!`);
-                return;
-            }
-            audioState.params = params;
-            // trace(`加载音频资源 audioRes: `, audioRes);
-            const _isLoop: boolean = loop ? true : false;
-            //获取到资源,播放音频
-            this._playAudioByRes(audioRes, audioResourcePath, _isLoop, volume, params);
-        });
+        // DEBUG && trace(`加载音频资源：${audioResourcePath}`);
+        // let audioState = this._getOrCreateState(audioResourcePath);
+        // audioState.state = 0;
+
+        // cc.resources.load(audioResourcePath, cc.AudioClip, (err, audioRes) => {
+        //     if (err || !cc.isValid(this, true)) {
+        //         trace(`playAudio, loadAsset error`, err);
+        //         return;
+        //     }
+        //     let audioState = this._states.get(audioResourcePath);
+        //     if (audioState.state == 2) {
+        //         DEBUG && trace(`${audioResourcePath} 已经被设置为停止状态!`);
+        //         return;
+        //     }
+        //     audioState.params = params;
+        //     // trace(`加载音频资源 audioRes: `, audioRes);
+        //     const _isLoop: boolean = loop ? true : false;
+        //     //获取到资源,播放音频
+        //     this._playAudioByRes(audioRes, audioResourcePath, _isLoop, volume, params);
+        // });
     }
 
     /**根据给定的资源播放音频 */

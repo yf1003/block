@@ -28,6 +28,10 @@ export class UserData  {
         } else {
             this._needGuide = false
         }
+
+        this.stepN = 6;
+        this._stepCount = 0;
+        this._clickCount = 0;
     }
 
     static save() {
@@ -46,10 +50,34 @@ export class UserData  {
         GroupType.Stone4
     ]
 
-    static randCount: number = 0;
+    /** 配置拖动次数 */
+    static stepN: number = 0;
+
+    /** 拖动次数 */
+    static _stepCount: number = 0;
+    static get stepCount(): number {
+        return this._stepCount;
+    }
+    static set stepCount(value: number) {
+        this._stepCount = value;
+    }
+
+    /** 点击次数 */
+    static _clickCount: number = 0;
+    static get clickCount(): number {
+        return this._clickCount;
+    }
+    static set clickCount(value: number) {
+        this._clickCount = value;
+    }
 
     static getGroupType(): GroupType {
-        if (++this.randCount <= 6) {
+        this.stepCount++
+        if (this.stepCount >= this.stepN) {
+            this.clickCount++
+        }
+
+        if (this.stepCount <= 6) {
             const index = RandTool.RandIncludeMin(0, this.randPool.length - 1);
             return this.randPool[index];
         } else {

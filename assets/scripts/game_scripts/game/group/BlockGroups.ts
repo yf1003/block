@@ -3,7 +3,7 @@ import { DirectionType } from "../../common/GameCommon";
 import ContextComponent from "../../common/tool/context/ContextComponent";
 import ContextPool from "../../common/tool/context/ContextPool";
 import RandTool from "../../common/tool/RandTool";
-import { CubeColorType, CubeDirectionType, GroupType } from "../config/LocalCommon";
+import LocalCommon, { CubeColorType, CubeDirectionType, GroupType } from "../config/LocalCommon";
 import ModelCube from "../cube/ModelCube";
 import GameManager from "../manager/GameManager";
 import BlockGroupData from "./BlockGroupData";
@@ -121,6 +121,7 @@ export default class BlockGroups extends ContextComponent {
 
         this.loadModelGroup();
         this.showRotationTip();
+        this.node.active = true;
     }
 
     public runBackAction() {
@@ -145,7 +146,7 @@ export default class BlockGroups extends ContextComponent {
         particle2.clear()
         particle2.play()
 
-        const defaultScale = 0.6
+        const defaultScale = LocalCommon.GROUP_SCALE
         this.node.setScale(0, 0, 1)
         XTween
             .to(this.node, 0.15, { scale: cc.v3(1.1 * defaultScale, 1.1 * defaultScale, 1) })
@@ -291,7 +292,7 @@ export default class BlockGroups extends ContextComponent {
     }
 
     public putDown(): void {
-        this.node.setScale(0.6, 0.6, 1);
+        this.node.setScale(LocalCommon.GROUP_SCALE, LocalCommon.GROUP_SCALE, 1);
         for (let model of this.mModeDataList) {
             model.putDown();
         }
@@ -300,6 +301,7 @@ export default class BlockGroups extends ContextComponent {
     }
 
     public showGray(): void {
+        return
         this.mIsGray = true;
         for (const model of this.mModeDataList) {
             model.IsGray = true;
@@ -314,5 +316,9 @@ export default class BlockGroups extends ContextComponent {
             model.IsGray = false;
         }
         this.showRotationTip();
+    }
+
+    public hideGroup() {
+        this.node.active = false;
     }
 }

@@ -87,7 +87,7 @@ export default class GameWorld extends LayerBase implements IGameState, IRegiste
     }
 
     public init(): boolean {
-        UserData.randCount = 0
+        UserData._stepCount = 0
         this.mContextPool = new ContextPool(this.name);
         this.mContextPool.insert(this);
 
