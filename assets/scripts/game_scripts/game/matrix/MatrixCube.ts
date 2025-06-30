@@ -16,6 +16,7 @@ import { AudioManager, EAudioType } from "../audio/AudioManager";
 import { XTween } from "mvplayable";
 import { AsyncQueue } from "../../common/AsyncQueue";
 import { UserData } from "../UserData";
+import { CustomCombo } from "../CustomCombo";
 
 const { ccclass, property } = cc._decorator;
 @ccclass
@@ -140,6 +141,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
 
         for (var i = 0; i < this.mGroupArray.length; i++) {
             this.mGroupArray[i].createNewGroup();
+            this.mGroupArray[i].runInsertAction();
         }
     }
 
@@ -231,12 +233,21 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
 
 
     public onTouchBegin(event: cc.EventTouch): void {
+        if (this.showingDragTip) {
+            cc.game.emit('hide_drag_tip')
+        } else {
+            this.startDragTip = true
+        }
+
         this.mTouchOffest = cc.v2(0, LocalCommon.TOUCH_GROUP_ADD_Y);
         let touches = event.getTouches();
         let touchposWorld = touches[0].getUILocation();
         let touchpos = this.node.getComponent(cc.UITransform).convertToNodeSpaceAR(cc.v3(touchposWorld.x, touchposWorld.y));
 
         for (let i = 0; i < this.NodeGroupPoint.length; i++) {
+            const group = this.mGroupArray[i]
+            if (!group.node.active) continue
+
             let size = this.NodeGroupPoint[i].getComponent(cc.UITransform).contentSize;
             let rect = cc.rect(this.NodeGroupPoint[i].position.x - size.width / 2, this.NodeGroupPoint[i].position.y - size.height / 2, size.width, size.height);
             if (rect.contains(cc.v2(touchpos.x, touchpos.y))) {
@@ -298,6 +309,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
     public onTouchEnd(event: cc.EventTouch): void {
         if (this.mTouchGroup === null)
             return;
+        cc.game.emit('hide_drag_tip')
         let isPutDown = false;
 
         let touches = event.getTouches();
@@ -312,6 +324,8 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
             this.mTouchGroup.putDown();
             this.mTouchGroup.runBackAction();
             this.mTouchGroup = null;
+            UserData.addClickCount()
+            CustomCombo.onPickFail()
             return;
         }
 
@@ -328,24 +342,28 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
                     let cube = this.mMatrixCubeData.getCube(rowCol.Row, rowCol.Col);
                     cube.showFullAnim(this.mTouchGroup.CubeColorType)
                 }
-                this.mTouchGroup.createNewGroup();
-                this.mTouchGroup.runInsertAction();
-                // this.mTouchGroup.hideGroup();
+                // this.mTouchGroup.createNewGroup();
+                // this.mTouchGroup.runInsertAction();
+                this.mTouchGroup.hideGroup();
 
                 this.mIsPutDown = true;
                 this.mIsCheckGroup = true;
                 isPutDown = true;
                 AudioManager.ins.playAudio(EAudioType.put)
                 UserData.needGuide = false
+                this.checkGroupInsert()
+                UserData.stepCount++
                 break;
             }
         }
         if (!isPutDown) {
             this.mTouchGroup.runBackAction();
+            CustomCombo.onPickFail()
         }
         this.mTouchGroup.putDown();
         this.mMatrixCubeData.hideAllShadow();
         this.mTouchGroup = null;
+        UserData.addClickCount()
     }
 
 
@@ -361,6 +379,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
 
 
     public onUpdate(dt: number) {
+        this.checkDragTip(dt)
         this.checkGuide(dt)
         this.checkMatrixHightLight()
 
@@ -371,6 +390,22 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
         }
         if (this.checkMatrixResult()) {
             return;
+        }
+    }
+
+    private startDragTip: boolean = false
+    private showingDragTip: boolean = false
+    private dragTipTime: number = 0
+
+    private checkDragTip(dt: number) {
+        if (!UserData.needDragTip) return
+        if (!this.startDragTip) return
+
+
+        this.dragTipTime += dt
+        if (this.dragTipTime >= 2) {
+            this.showingDragTip = true
+            cc.game.emit('show_drag_tip')
         }
     }
 
@@ -398,7 +433,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
         let isOver = true;
 
         for (let group of this.mGroupArray) {
-            if (this.chenkGroupInsert(group)) {
+            if (group.node.active && this.chenkGroupInsert(group)) {
                 isOver = false;
             }
         }
@@ -476,6 +511,16 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
         // }, delay);
     }
 
+    private checkGroupInsert() {
+        const hasShowGroup = this.mGroupArray.find(group => group.node.active === true)
+        if (hasShowGroup) return
+
+        this.mGroupArray.forEach(group => {
+            group.createNewGroup();
+            group.runInsertAction();
+        })
+    }
+
     private time: number = 0
     public checkGuide(dt: number) {
         if (!UserData.needGuide) return
@@ -485,7 +530,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
         if (this.time >= 3) {
             this.time = 0
             if (UserData.needGuide) {
-                cc.game.emit('showGuide')
+                cc.game.emit('showGuide', this.mGroupArray[0])
             }
         }
     }
@@ -588,6 +633,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
             return false
         } else {
             this.clearCubeOnByOne(clearArray);
+            CustomCombo.onPickSuccess()
             if (clearArray.length > 1) {
                 AudioManager.ins.playAudio(EAudioType.synthesis2)
             } else {
@@ -604,38 +650,13 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
      * @returns 
      */
     public clearCubeOnByOne(clearCubeArray: Array<Array<CubeBase>>) {
-        let addScore = 0
-        for (let i = 0; i < clearCubeArray.length; i++) {
-            addScore += clearCubeArray[i].length * LocalCommon.AWARD_SCORE_MULTI
-        }
+        let addScore = clearCubeArray.length * LocalCommon.AWARD_SCORE_MULTI
 
         const callback = mollocCountFunc(clearCubeArray.length, () => {
             this.mIsCheckGroup = true;
             this.mGameWord.GameUi.addScore(addScore);
         })
         clearCubeArray.forEach(arr => {
-            // let actionArray: cc.Tween<cc.Node>[] = [];
-            // for (let i = 0; i < arr.length; i++) {
-            //     GameWorld.IncreaseLock();
-            //     let cube = arr[i];
-            //     actionArray.push(cc.tween().call(() => {
-            //         this.changeCubeEmpty(cube);
-            //         GameWorld.ReduceLock();
-            //     }));
-            //     actionArray.push(cc.tween().delay(0.05));
-            // }
-
-            // if (actionArray.length > 0) {
-            //     actionArray.push(cc.tween().call(() => {
-            //         callback()
-            //     }));
-
-            //     let action = cc.tween(this.node).sequence(...actionArray);
-            //     action.start();
-            // } else {
-            //     callback()
-            // }
-
             const queue = new AsyncQueue()
             for (let i = 0; i < arr.length; i++) {
                 GameWorld.IncreaseLock();

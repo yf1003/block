@@ -43,9 +43,6 @@ export class HighLightLayer extends Component {
                 }
             })
         }
-        // node.children[0].children.forEach(child => {
-        //     child.getComponent(cc.ParticleSystem).play()
-        // })
     }
 
     public hideAllHightLight() {

@@ -5,6 +5,7 @@ import BaseScene from "../../../expand/ui/BaseScene";
 import { SceneType } from "./SceneType";
 import GameStart from '../../../common/GameStart';
 import { UserData } from '../../UserData';
+import { CustomCombo } from '../../CustomCombo';
 
 @ccclass('GameScene')
 export default class GameScene extends BaseScene {
@@ -19,6 +20,7 @@ export default class GameScene extends BaseScene {
             GameScene.isInit = true
         }
         UserData.init()
+        CustomCombo.init()
         this.init(SceneType.GameScene);
     }
 }

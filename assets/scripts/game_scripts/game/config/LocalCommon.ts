@@ -128,7 +128,7 @@ export default class LocalCommon {
     public static readonly GROUP_SCALE = 0.5;
 
 
-    public static readonly AWARD_SCORE_MULTI: number = 4;
+    public static readonly AWARD_SCORE_MULTI: number = 2000;
     public static readonly LEVEL_TARGET_SCORE: number = 300;
     public static readonly LEVEL_UP_CLEAR_NUMBER: number = 4;
 
@@ -147,6 +147,7 @@ export default class LocalCommon {
      * @returns 
      */
     public static GetPutDownScore(number: number): number {
+        return number;
         for (var i = 0; i < LocalCommon.PutDownScore.length; i++) {
             if (LocalCommon.PutDownScore[i][0] == number)
                 return LocalCommon.PutDownScore[i][1];

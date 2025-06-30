@@ -2,7 +2,7 @@ import * as cc from 'cc'
 import { GroupType } from './config/LocalCommon';
 import RandTool from '../common/tool/RandTool';
 
-export class UserData  {
+export class UserData {
     private static _maxScore: number = 0;
     static get maxScore(): number {
         return this._maxScore;
@@ -21,12 +21,27 @@ export class UserData  {
         this.save()
     }
 
+    private static _needDragTip: boolean = false
+    static get needDragTip() {
+        return this._needDragTip
+    }
+    static set needDragTip(value: boolean) {
+        this._needDragTip = value
+        this.save()
+    }
+
     static init() {
         this._maxScore = cc.sys.localStorage.getItem('maxScore') || 0;
         if (!cc.sys.localStorage.getItem('needGuide')) {
             this._needGuide = true
         } else {
             this._needGuide = false
+        }
+
+        if (!cc.sys.localStorage.getItem('needDragTip')) {
+            this._needDragTip = true
+        } else {
+            this._needDragTip = false
         }
 
         this.stepN = 6;
@@ -37,6 +52,7 @@ export class UserData  {
     static save() {
         cc.sys.localStorage.setItem('maxScore', this.maxScore.toString());
         cc.sys.localStorage.setItem('needGuide', this._needGuide);
+        cc.sys.localStorage.setItem('needDragTip', this._needDragTip);
     }
 
     static randPool: GroupType[] = [
@@ -51,10 +67,10 @@ export class UserData  {
     ]
 
     /** 配置拖动次数 */
-    static stepN: number = 0;
+    public static stepN: number = 0;
 
-    /** 拖动次数 */
-    static _stepCount: number = 0;
+    /** 玩家步数 */
+    private static _stepCount: number = 0;
     static get stepCount(): number {
         return this._stepCount;
     }
@@ -63,7 +79,7 @@ export class UserData  {
     }
 
     /** 点击次数 */
-    static _clickCount: number = 0;
+    private static _clickCount: number = 0;
     static get clickCount(): number {
         return this._clickCount;
     }
@@ -71,13 +87,17 @@ export class UserData  {
         this._clickCount = value;
     }
 
-    static getGroupType(): GroupType {
-        this.stepCount++
-        if (this.stepCount >= this.stepN) {
-            this.clickCount++
-        }
+    /** 增加点击次数 */
+    static addClickCount() {
+        if (this.stepCount < this.stepN) return
+        this.clickCount++
+    }
 
-        if (this.stepCount <= 6) {
+    /** 创建次数 */
+    private static _createCount: number = 0;
+    static getGroupType(): GroupType {
+        this._createCount++
+        if (this._createCount <= 6) {
             const index = RandTool.RandIncludeMin(0, this.randPool.length - 1);
             return this.randPool[index];
         } else {

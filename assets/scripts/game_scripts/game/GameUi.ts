@@ -38,6 +38,14 @@ export default class GameUi extends cc.Component implements IGameState {
             UserData.maxScore = this.mScore;
             this.LabelMaxScore.string = UserData.maxScore.toString();
         }
+
+        // 当分数是7000的倍数时，播放音效
+        if (this.mScore % 7000 === 0) {
+            cc.game.emit('showLoveEffect')
+        }
+        if (this.mScore % 1000 === 0) {
+            cc.game.emit('showNumEffect', 1000)
+        }
         this.DynamicAddScore.TargetScore = this.mScore;
     }
 

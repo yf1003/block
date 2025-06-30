@@ -1,12 +1,15 @@
 import * as cc from 'cc'
 import { _decorator, Component, Node } from 'cc';
 import { XTween } from 'mvplayable';
+import BlockGroups from './group/BlockGroups';
 const { ccclass, property } = _decorator;
 
 @ccclass('CustomGuideLayer')
 export class CustomGuideLayer extends Component {
     @property(cc.Node)
     private guideNode: cc.Node = null;
+    @property(cc.Node)
+    private groupRoot: cc.Node = null;
 
     private initPosition: cc.Vec3;
     private tween: XTween<cc.Node>
@@ -16,6 +19,7 @@ export class CustomGuideLayer extends Component {
         this.guideNode.active = false
         this.initPosition = this.guideNode.position.clone()
 
+        //@ts-ignore
         cc.game.on('showGuide', this.showGuide, this)
         cc.game.on('hideGuide', this.hideGuide, this)
     }
@@ -24,16 +28,23 @@ export class CustomGuideLayer extends Component {
         cc.game.targetOff(this)
     }
 
-    public showGuide() {
+    public showGuide(group: BlockGroups) {
         if (this.showing) return
+
+        if (!this.groupRoot.children.length) {
+            const clone = cc.instantiate(group.node)
+            this.groupRoot.addChild(clone)
+            clone.setPosition(0, 0, 0)
+            clone.setScale(1, 1, 1)
+        }
 
         this.showing = true
         this.guideNode.setPosition(this.initPosition)
         this.guideNode.active = true
 
         const endPos = this.initPosition.clone()
-        endPos.y += 386
-        endPos.x -= 53
+        endPos.y += 450
+        endPos.x += 106
 
         this.tween && this.tween.stop()
         this.tween = XTween
@@ -42,7 +53,7 @@ export class CustomGuideLayer extends Component {
             .delay(1)
             .call(() => {
                 this.showing = false
-                this.showGuide()
+                this.showGuide(group)
             })
             .play()
     }
