@@ -1,6 +1,7 @@
 import * as cc from 'cc'
 import { _decorator, Component, Node } from 'cc';
 import { AudioManager, EAudioType } from './audio/AudioManager';
+import { XTween } from 'mvplayable';
 const { ccclass, property } = _decorator;
 
 @ccclass('CustomEffectLayer')

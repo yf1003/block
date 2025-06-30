@@ -32,6 +32,9 @@ export default class GameUi extends cc.Component implements IGameState {
         return this.mScore;
     }
 
+    private score7000List: number[] = []
+    private scroe1000List: number[] = []
+
     public addScore(add: number): void {
         this.mScore += add;
         if (this.mScore > UserData.maxScore) {
@@ -40,11 +43,20 @@ export default class GameUi extends cc.Component implements IGameState {
         }
 
         // 当分数是7000的倍数时，播放音效
-        if (this.mScore % 7000 === 0) {
-            cc.game.emit('showLoveEffect')
+        if (this.mScore > 7000) {
+            const score7000 = Math.floor(this.mScore / 7000) * 7000
+            if (!this.score7000List.includes(score7000)) {
+                this.score7000List.push(score7000)
+                cc.game.emit('showLoveEffect')
+            }
         }
-        if (this.mScore % 1000 === 0) {
-            cc.game.emit('showNumEffect', 1000)
+
+        if (this.mScore > 1000) {
+            const score1000 = Math.floor(this.mScore / 1000) * 1000
+            if (!this.scroe1000List.includes(score1000)) {
+                this.scroe1000List.push(score1000)
+                cc.game.emit('showNumEffect', 1000)
+            }
         }
         this.DynamicAddScore.TargetScore = this.mScore;
     }
