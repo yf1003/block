@@ -16,6 +16,8 @@ export class CustomGuideLayer extends Component {
     private moveEnd: cc.Node = null
     @property(cc.Node)
     private moveFirstEnd: cc.Node = null
+    @property(cc.Node)
+    private cubeLayer: cc.Node = null
 
     private initPosition: cc.Vec3;
     private tween: XTween<cc.Node>
@@ -50,10 +52,8 @@ export class CustomGuideLayer extends Component {
         const clone = cc.instantiate(group.node)
         this.groupRoot.addChild(clone)
         clone.setPosition(0, 0, 0)
-        clone.setScale(1, 1, 1)
         this.hideShadow(clone.getComponent(BlockGroups))
-        this.initPosition = group.node.getWorldPosition().clone()
-        this.showFinger(group)
+        this.showFinger(group, clone)
 
         // drag动画
         this.showDrag()
@@ -75,10 +75,8 @@ export class CustomGuideLayer extends Component {
         const clone = cc.instantiate(group.node)
         this.groupRoot.addChild(clone)
         clone.setPosition(0, 0, 0)
-        clone.setScale(1, 1, 1)
         this.hideShadow(clone.getComponent(BlockGroups))
-        this.initPosition = group.node.getWorldPosition().clone()
-        this.showFinger(group)
+        this.showFinger(group, clone)
     }
 
     private hideNoTouch() {
@@ -96,8 +94,9 @@ export class CustomGuideLayer extends Component {
             .play()
     }
 
-    private showFinger(group: BlockGroups) {
-        this.guideNode.setWorldPosition(this.initPosition)
+    private showFinger(group: BlockGroups, clone: cc.Node) {
+        clone.setScale(1, 1, 1)
+        this.guideNode.setWorldPosition(group.node.getWorldPosition())
         this.guideNode.active = true
 
         this.tween && this.tween.stop()
@@ -107,7 +106,7 @@ export class CustomGuideLayer extends Component {
             .set({ active: false })
             .delay(1)
             .call(() => {
-                this.showFinger(group)
+                this.showFinger(group, clone)
             })
             .play()
     }

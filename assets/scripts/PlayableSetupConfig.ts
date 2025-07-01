@@ -38,11 +38,11 @@ export class PlayableSetupConfig extends SetupConfig {
 
     @registerSystemSetup(400) // 注册一个事件系统，当场景加载玩成，游戏未启动时，可以做一些资源处理。
     protected static initGameView(config: SetupConfig): void {
-        // const gameViewPrefab = resources.get("prefabs/gameView", Prefab);
-        // const canvasNode = config.scene.getChildByName("Canvas");
-        // canvasNode.getOrAddComponent(AdaptScreenManager);
-        // const gameView = instantiate(gameViewPrefab);
-        // gameView.setParent(canvasNode);
+        const gameViewPrefab = resources.get("prefabs/gameView", Prefab);
+        const canvasNode = config.scene.getChildByName("Canvas");
+        canvasNode.getOrAddComponent(AdaptScreenManager);
+        const gameView = instantiate(gameViewPrefab);
+        gameView.setParent(canvasNode);
     }
 
     public onShutdown(): void {
