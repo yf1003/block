@@ -58,6 +58,7 @@ export default class GameUi extends cc.Component implements IGameState {
                 cc.game.emit('showNumEffect', 1000)
             }
         }
+
         this.DynamicAddScore.TargetScore = this.mScore;
     }
 

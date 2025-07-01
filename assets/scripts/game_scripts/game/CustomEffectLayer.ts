@@ -40,12 +40,45 @@ export class CustomEffectLayer extends Component {
             AudioManager.ins.playAudio(EAudioType.great)
         }
 
-        this.loveEffect.getComponent(cc.ParticleSystem).play()
-        this.loveEffect.children[0].getComponent(cc.ParticleSystem).play()
-        this.scheduleOnce(() => {
-            this.loveEffect.active = false
-            this.showingLove = false
-        }, 1)
+        const icon = this.loveEffect.getChildByName('icon')
+        const iconOp = icon.getComponent(cc.UIOpacity)
+        iconOp.opacity = 0
+
+        icon.active = true
+        icon.setScale(0.8, 0.8, 1)
+        XTween
+            .to(iconOp, 0.1, { opacity: 204 })
+            .call(() => {
+                const lizi = this.loveEffect.getChildByName('lizi')
+                lizi.active = true
+                lizi.getComponent(cc.ParticleSystem).play()
+                lizi.children[0].getComponent(cc.ParticleSystem).play()
+
+                this.scheduleOnce(() => {
+                    lizi.active = false
+                }, 2)
+
+                XTween
+                    .to(icon, 0.32, { scale: cc.v3(1.1, 1.1, 1) })
+                    .to(0.08, { scale: cc.v3(1, 1, 1) })
+                    .call(() => {
+                        XTween
+                            .to(iconOp, 0.2, { opacity: 0 })
+                            .to(0.2, { opacity: 204 })
+                            .to(iconOp, 0.2, { opacity: 0 })
+                            .to(0.2, { opacity: 204 })
+                            .to(iconOp, 0.2, { opacity: 0 })
+                            .to(0.2, { opacity: 204 })
+                            .to(0.5, { opacity: 0 })
+                            .call(() => {
+                                this.loveEffect.active = false
+                                this.showingLove = false
+                            })
+                            .play()
+                    })
+                    .play()
+            })
+            .play()
     }
 
     private showingNum: boolean = false
@@ -59,15 +92,13 @@ export class CustomEffectLayer extends Component {
         labNum.string = `${num}`
 
         this.numEffect.active = true
-        const defaultPos = this.numEffect.position.clone()
-        const offsetPos = cc.v3(defaultPos.x, defaultPos.y - 80, defaultPos.z)
-        this.numEffect.setPosition(offsetPos)
-        this.numEffect.setScale(0.7, 0.7, 1)
+        this.numEffect.setScale(0, 0, 1)
         this.tweenNum =
             XTween
-                .to(this.numEffect, 0.1, { position: defaultPos, scale: cc.v3(1.1, 1.1, 1) })
-                .to(0.02, { scale: cc.v3(1, 1, 1) })
-                .delay(0.6)
+                .to(this.numEffect, 0.22, { scale: cc.v3(1.5, 1.5, 1) })
+                .to(0.08, { scale: cc.v3(1, 1, 1) })
+                .delay(0.5)
+                .to(0.2, { scale: cc.v3(0, 0, 1) })
                 .call(() => {
                     this.numEffect.active = false
                     this.showingNum = false
@@ -85,13 +116,13 @@ export class CustomEffectLayer extends Component {
         const labCombo = this.comboEffect.getChildByName('Layout').getChildByName('lab_num').getComponent(cc.Label)
         labCombo.string = `x${num}`
 
-        this.comboEffect.active = true  
+        this.comboEffect.active = true
         this.comboEffect.setScale(0, 0, 1)
         this.tweenCombo =
             XTween
-                .to(this.comboEffect, 0.25, { scale: cc.v3(1.3, 1.3, 1) })
-                .to(0.05, { scale: cc.v3(1, 1, 1) })
-                .delay(0.2)
+                .to(this.comboEffect, 0.22, { scale: cc.v3(1.5, 1.5, 1) })
+                .to(0.08, { scale: cc.v3(1, 1, 1) })
+                .delay(0.5)
                 .to(0.2, { scale: cc.v3(0, 0, 1) })
                 .call(() => {
                     this.comboEffect.active = false

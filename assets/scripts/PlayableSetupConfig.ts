@@ -21,13 +21,13 @@ export class PlayableSetupConfig extends SetupConfig {
         director.on(Director.EVENT_BEFORE_SCENE_LOADING, this.onShutdown, this);
         /** 当调用了{@link playable.showEnding}后，这里能收到显示结束页面的事件 */
         playable.eventSystem.on(Playable.EndingEvent, (result) => {
-            console.log("show ending", result);
+            // console.log("show ending", result);
             // if (sys.platform === sys.Platform.WECHAT_GAME) // 客户特殊要求：如不点击，2秒后自动跳转微信结束页
             //     setTimeout(() => playable.install(InstallType.None), 2000);
             // ViewUIManager.hideView(GameView); // 如果素材有需要在结束页时隐藏GameView页面，可以开启此代码
             // 在此显示ending 页面
-            const ending = instantiate(resources.get("prefabs/endingView", Prefab));
-            director.getScene().getChildByName("Canvas").addChild(ending);
+            // const ending = instantiate(resources.get("prefabs/endingView", Prefab));
+            // director.getScene().getChildByName("Canvas").addChild(ending);
         });
     }
 

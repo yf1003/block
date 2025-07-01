@@ -5,7 +5,7 @@ export default class DynamicAddScore extends cc.Component {
     @property(cc.Label)
     public LabelScore: cc.Label = null;
 
-    private mSpanCount: number = 50;
+    private mSpanCount: number = 100;
     private mSpanMax: number = 500;
 
 

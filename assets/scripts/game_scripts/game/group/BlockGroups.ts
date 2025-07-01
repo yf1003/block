@@ -153,9 +153,12 @@ export default class BlockGroups extends ContextComponent {
         XTween
             .to(this.node, 0.15, { scale: cc.v3(1.1 * defaultScale, 1.1 * defaultScale, 1) })
             .to(0.05, { scale: cc.v3(defaultScale, defaultScale, 1) })
+            .delay(1.5)
             .call(() => {
-                this.displayEffect1.active = false
-                this.displayEffect2.active = false
+                if (this?.isValid) {
+                    this.displayEffect1.active = false
+                    this.displayEffect2.active = false
+                }
             })
             .play()
     }

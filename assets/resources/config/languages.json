@@ -5,7 +5,7 @@
             "0": {
                 "value": "0",
                 "style": {
-                    "fontSize": 45,
+                    "fontSize": 55,
                     "color": "#ffffff",
                     "alpha": 1,
                     "stroke": 0,
@@ -34,7 +34,7 @@
                     "color": "#ffffff",
                     "alpha": 1,
                     "stroke": 4,
-                    "strokeColor": "#ab42ff",
+                    "strokeColor": "#18f100",
                     "bold": false,
                     "italic": false,
                     "enableShadow": false,
@@ -131,7 +131,7 @@
             "Combo": {
                 "value": "Combo",
                 "style": {
-                    "fontSize": 60,
+                    "fontSize": 100,
                     "color": "#d5f2fd",
                     "alpha": 1,
                     "stroke": 4,
@@ -155,7 +155,7 @@
             "×0": {
                 "value": "×0",
                 "style": {
-                    "fontSize": 60,
+                    "fontSize": 100,
                     "color": "#fee222",
                     "alpha": 1,
                     "stroke": 4,
