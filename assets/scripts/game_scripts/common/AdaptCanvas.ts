@@ -1,6 +1,6 @@
 import * as cc from "cc";
 import { _decorator, Component, Node } from 'cc';
-const { ccclass, property } = _decorator;
+const { ccclass } = _decorator;
 
 @ccclass('AdaptCanvas')
 export class AdaptCanvas extends Component {

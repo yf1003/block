@@ -76,6 +76,10 @@ export default class GameUi extends cc.Component implements IGameState {
         this.refershScore();
     }
 
+    protected start(): void {
+        this.LabelMaxScore.getComponent(cc.Label).color = new cc.Color().fromHEX('#FFB615')
+    }
+
     public onClickHome(): void {
         cc.director.loadScene(SceneType.GameScene.toString());
     }

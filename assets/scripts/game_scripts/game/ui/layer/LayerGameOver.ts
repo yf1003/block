@@ -3,6 +3,7 @@ import ExtendButton from "../../../common/extend/ExtendButton";
 import LayerBase from "../../../expand/ui/LayerBase";
 import GameUi from "../../GameUi";
 import { SceneType } from "../scene/SceneType";
+import { XTween } from 'mvplayable';
 const { ccclass, property } = cc._decorator;
 @ccclass
 export default class LayerGameOver extends LayerBase {
@@ -17,8 +18,16 @@ export default class LayerGameOver extends LayerBase {
     public init(): boolean {
         ExtendButton.AddOnClick(this.ButtonReplay, this.onClickReplay, this);
 
-
+        this.playEnterEffect()
         return true;
+    }
+
+    private playEnterEffect() {
+        const op = this.node.getComponent(cc.UIOpacity)
+        op.opacity = 0
+        XTween
+            .to(op, 0.3, { opacity: 255 })
+            .play()
     }
 
     public onClickReplay(): void {

@@ -526,7 +526,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
         if (this.mTouchGroup) return
 
         this.time += dt
-        if (this.time >= 1) {
+        if (this.time >= 0.3) {
             this.time = 0
             cc.game.emit('showGuide', this.mGroupArray[0])
         }

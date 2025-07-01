@@ -22,7 +22,7 @@ export class UserData {
     }
 
     static init() {
-        this._maxScore = cc.sys.localStorage.getItem('maxScore') || 0;
+        this._maxScore = 0;
         if (!cc.sys.localStorage.getItem('needGuide')) {
             this._needGuide = true
         } else {
@@ -81,7 +81,10 @@ export class UserData {
     private static _createCount: number = 0;
     static getGroupType(): GroupType {
         this._createCount++
-        if (this._createCount <= 6) {
+        
+        if (this._createCount === 1) {
+            return GroupType.Line
+        } else if (this._createCount <= 6) {
             const index = RandTool.RandIncludeMin(0, this.randPool.length - 1);
             return this.randPool[index];
         } else {

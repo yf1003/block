@@ -14,11 +14,15 @@ export class CustomGuideLayer extends Component {
     private dragTip: cc.Node = null
     @property(cc.Node)
     private moveEnd: cc.Node = null
+    @property(cc.Node)
+    private moveFirstEnd: cc.Node = null
 
     private initPosition: cc.Vec3;
     private tween: XTween<cc.Node>
     private showingGuide: boolean = false
     private showingNoTouch: boolean = false
+
+    private isFirstGuide: boolean = true
 
     onLoad() {
         this.guideNode.active = false
@@ -47,7 +51,7 @@ export class CustomGuideLayer extends Component {
         this.groupRoot.addChild(clone)
         clone.setPosition(0, 0, 0)
         clone.setScale(1, 1, 1)
-        clone.getComponent(BlockGroups).pickUp()
+        this.hideShadow(clone.getComponent(BlockGroups))
         this.initPosition = group.node.getWorldPosition().clone()
         this.showFinger(group)
 
@@ -60,6 +64,7 @@ export class CustomGuideLayer extends Component {
         this.guideNode.active = false
         this.dragTip.active = false
         this.showingGuide = false
+        this.isFirstGuide = false
     }
 
     private showNoTouch(group: BlockGroups) {
@@ -71,6 +76,7 @@ export class CustomGuideLayer extends Component {
         this.groupRoot.addChild(clone)
         clone.setPosition(0, 0, 0)
         clone.setScale(1, 1, 1)
+        this.hideShadow(clone.getComponent(BlockGroups))
         this.initPosition = group.node.getWorldPosition().clone()
         this.showFinger(group)
     }
@@ -95,7 +101,7 @@ export class CustomGuideLayer extends Component {
         this.guideNode.active = true
 
         this.tween && this.tween.stop()
-        const endPos = this.moveEnd.getWorldPosition()
+        const endPos = this.isFirstGuide ? this.moveFirstEnd.getWorldPosition() : this.moveEnd.getWorldPosition()
         this.tween = XTween
             .to(this.guideNode, 2.5, { worldPosition: endPos }, { easing: 'quinticOut' })
             .set({ active: false })
@@ -104,6 +110,12 @@ export class CustomGuideLayer extends Component {
                 this.showFinger(group)
             })
             .play()
+    }
+
+    private hideShadow(clone: BlockGroups) {
+        clone.itemLayer.children.forEach(item => {
+            item.getChildByName('block_projection').active = false
+        })
     }
 }
 
