@@ -4,6 +4,8 @@ const { ccclass, property } = _decorator;
 
 @ccclass('AdaptCanvas')
 export class AdaptCanvas extends Component {
+    static fitValue: number = -1
+
     public onLoad(): void {
         this.gameFitHandler(cc.macro.ORIENTATION_PORTRAIT);
     }
@@ -24,6 +26,7 @@ export class AdaptCanvas extends Component {
                     fitValue = cc.ResolutionPolicy.FIXED_WIDTH;
                 }
                 cc.view.setDesignResolutionSize(minSize, maxSize, fitValue);
+                AdaptCanvas.fitValue = fitValue
                 break;
             }
             case cc.macro.ORIENTATION_LANDSCAPE: {
@@ -34,6 +37,7 @@ export class AdaptCanvas extends Component {
                     fitValue = cc.ResolutionPolicy.FIXED_HEIGHT;
                 }
                 cc.view.setDesignResolutionSize(maxSize, minSize, fitValue);
+                AdaptCanvas.fitValue = fitValue
                 break;
             }
             default: {

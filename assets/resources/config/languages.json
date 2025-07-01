@@ -5,12 +5,12 @@
             "0": {
                 "value": "0",
                 "style": {
-                    "fontSize": 40,
+                    "fontSize": 45,
                     "color": "#ffffff",
                     "alpha": 1,
                     "stroke": 0,
                     "strokeColor": "#065e09",
-                    "bold": true,
+                    "bold": false,
                     "italic": false,
                     "enableShadow": false,
                     "shadowColor": "#000000",
@@ -30,12 +30,12 @@
             "1000": {
                 "value": "1000",
                 "style": {
-                    "fontSize": 50,
+                    "fontSize": 70,
                     "color": "#ffffff",
                     "alpha": 1,
                     "stroke": 4,
                     "strokeColor": "#ab42ff",
-                    "bold": true,
+                    "bold": false,
                     "italic": false,
                     "enableShadow": false,
                     "shadowColor": "#000000",
@@ -59,7 +59,7 @@
                     "alpha": 1,
                     "stroke": 4,
                     "strokeColor": "#287f01",
-                    "bold": true,
+                    "bold": false,
                     "italic": false,
                     "enableShadow": false,
                     "shadowColor": "#000000",
@@ -85,7 +85,7 @@
                     "alpha": 1,
                     "stroke": 0,
                     "strokeColor": "#065e09",
-                    "bold": true,
+                    "bold": false,
                     "italic": false,
                     "enableShadow": false,
                     "shadowColor": "#000000",
@@ -106,12 +106,12 @@
             "0x": {
                 "value": "0",
                 "style": {
-                    "fontSize": 35,
+                    "fontSize": 45,
                     "color": "#ffac2c",
                     "alpha": 1,
                     "stroke": 0,
                     "strokeColor": "#065e09",
-                    "bold": true,
+                    "bold": false,
                     "italic": false,
                     "enableShadow": false,
                     "shadowColor": "#000000",
@@ -128,15 +128,15 @@
                 "scene": "scene1_playing",
                 "resource": "score_icon.png"
             },
-            "COMBO": {
-                "value": "COMBO",
+            "Combo": {
+                "value": "Combo",
                 "style": {
-                    "fontSize": 50,
-                    "color": "#ffffff",
+                    "fontSize": 60,
+                    "color": "#d5f2fd",
                     "alpha": 1,
                     "stroke": 4,
-                    "strokeColor": "#ab42ff",
-                    "bold": true,
+                    "strokeColor": "#324ece",
+                    "bold": false,
                     "italic": false,
                     "enableShadow": false,
                     "shadowColor": "#000000",
@@ -150,18 +150,17 @@
                     "glowColor": "#000000",
                     "glowBlur": 0
                 },
-                "scene": "scene1_playing",
-                "resource": "0.png"
+                "scene": "scene1_playing"
             },
             "×0": {
                 "value": "×0",
                 "style": {
-                    "fontSize": 50,
-                    "color": "#ffffff",
+                    "fontSize": 60,
+                    "color": "#fee222",
                     "alpha": 1,
                     "stroke": 4,
-                    "strokeColor": "#ab42ff",
-                    "bold": true,
+                    "strokeColor": "#324ece",
+                    "bold": false,
                     "italic": false,
                     "enableShadow": false,
                     "shadowColor": "#000000",
@@ -175,8 +174,31 @@
                     "glowColor": "#000000",
                     "glowBlur": 0
                 },
-                "scene": "scene1_playing",
-                "resource": "0.png"
+                "scene": "scene1_playing"
+            },
+            "DRAG THE BLOCK": {
+                "value": "DRAG THE BLOCK",
+                "style": {
+                    "fontSize": 50,
+                    "color": "#ffffff",
+                    "alpha": 1,
+                    "stroke": 0,
+                    "strokeColor": "#065e09",
+                    "bold": false,
+                    "italic": false,
+                    "enableShadow": false,
+                    "shadowColor": "#000000",
+                    "shadowBlur": 0,
+                    "shadowOffsetX": 0,
+                    "shadowOffsetY": 0,
+                    "gradient": false,
+                    "startColor": "#000000",
+                    "endColor": "#000000",
+                    "enableGlow": false,
+                    "glowColor": "#000000",
+                    "glowBlur": 0
+                },
+                "scene": "scene1_playing"
             },
             "TRY AGAIN": {
                 "value": "TRY AGAIN",
@@ -186,7 +208,7 @@
                     "alpha": 1,
                     "stroke": 4,
                     "strokeColor": "#287f01",
-                    "bold": true,
+                    "bold": false,
                     "italic": false,
                     "enableShadow": false,
                     "shadowColor": "#000000",

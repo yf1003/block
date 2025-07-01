@@ -56,7 +56,7 @@ export class CustomEffectLayer extends Component {
 
         this.tweenNum && this.tweenNum.stop()
         const labNum = this.numEffect.getChildByName('lab_num').getComponent(cc.Label)
-        labNum.string = `+${num}`
+        labNum.string = `${num}`
 
         this.numEffect.active = true
         const defaultPos = this.numEffect.position.clone()
@@ -85,16 +85,14 @@ export class CustomEffectLayer extends Component {
         const labCombo = this.comboEffect.getChildByName('Layout').getChildByName('lab_num').getComponent(cc.Label)
         labCombo.string = `x${num}`
 
-        this.comboEffect.active = true
-        const defaultPos = this.comboEffect.position.clone()
-        const offsetPos = cc.v3(defaultPos.x, defaultPos.y - 80, defaultPos.z)
-        this.comboEffect.setPosition(offsetPos)
-        this.comboEffect.setScale(0.7, 0.7, 1)
+        this.comboEffect.active = true  
+        this.comboEffect.setScale(0, 0, 1)
         this.tweenCombo =
             XTween
-                .to(this.comboEffect, 0.1, { position: defaultPos, scale: cc.v3(1.1, 1.1, 1) })
-                .to(0.02, { scale: cc.v3(1, 1, 1) })
-                .delay(0.6)
+                .to(this.comboEffect, 0.25, { scale: cc.v3(1.3, 1.3, 1) })
+                .to(0.05, { scale: cc.v3(1, 1, 1) })
+                .delay(0.2)
+                .to(0.2, { scale: cc.v3(0, 0, 1) })
                 .call(() => {
                     this.comboEffect.active = false
                     this.showingCombo = false

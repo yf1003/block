@@ -233,11 +233,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
 
 
     public onTouchBegin(event: cc.EventTouch): void {
-        if (this.showingDragTip) {
-            cc.game.emit('hide_drag_tip')
-        } else {
-            this.startDragTip = true
-        }
+        this.clearNoTouchTip()
 
         this.mTouchOffest = cc.v2(0, LocalCommon.TOUCH_GROUP_ADD_Y);
         let touches = event.getTouches();
@@ -309,7 +305,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
     public onTouchEnd(event: cc.EventTouch): void {
         if (this.mTouchGroup === null)
             return;
-        cc.game.emit('hide_drag_tip')
+        this.clearNoTouchTip()
         let isPutDown = false;
 
         let touches = event.getTouches();
@@ -379,7 +375,7 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
 
 
     public onUpdate(dt: number) {
-        this.checkDragTip(dt)
+        this.checkNoTouchTip(dt)
         this.checkGuide(dt)
         this.checkMatrixHightLight()
 
@@ -393,20 +389,23 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
         }
     }
 
-    private startDragTip: boolean = false
-    private showingDragTip: boolean = false
     private dragTipTime: number = 0
-
-    private checkDragTip(dt: number) {
-        if (!UserData.needDragTip) return
-        if (!this.startDragTip) return
-
+    private checkNoTouchTip(dt: number) {
+        if (this.mTouchGroup) return
 
         this.dragTipTime += dt
-        if (this.dragTipTime >= 2) {
-            this.showingDragTip = true
-            cc.game.emit('show_drag_tip')
+        if (this.dragTipTime >= 3) {
+            this.dragTipTime = 0
+            const showGroup = this.mGroupArray.find(group => group.node.active)
+            if (showGroup) {
+                cc.game.emit('showNoTouch', showGroup)
+            }
         }
+    }
+
+    private clearNoTouchTip() {
+        this.dragTipTime = 0
+        cc.game.emit('hideNoTouch')
     }
 
     /**
@@ -527,11 +526,9 @@ export default class MatrixCube extends ContextComponent implements ITouchEvent 
         if (this.mTouchGroup) return
 
         this.time += dt
-        if (this.time >= 3) {
+        if (this.time >= 1) {
             this.time = 0
-            if (UserData.needGuide) {
-                cc.game.emit('showGuide', this.mGroupArray[0])
-            }
+            cc.game.emit('showGuide', this.mGroupArray[0])
         }
     }
 

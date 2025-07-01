@@ -21,27 +21,12 @@ export class UserData {
         this.save()
     }
 
-    private static _needDragTip: boolean = false
-    static get needDragTip() {
-        return this._needDragTip
-    }
-    static set needDragTip(value: boolean) {
-        this._needDragTip = value
-        this.save()
-    }
-
     static init() {
         this._maxScore = cc.sys.localStorage.getItem('maxScore') || 0;
         if (!cc.sys.localStorage.getItem('needGuide')) {
             this._needGuide = true
         } else {
             this._needGuide = false
-        }
-
-        if (!cc.sys.localStorage.getItem('needDragTip')) {
-            this._needDragTip = true
-        } else {
-            this._needDragTip = false
         }
 
         this.stepN = 6;
@@ -52,7 +37,6 @@ export class UserData {
     static save() {
         cc.sys.localStorage.setItem('maxScore', this.maxScore.toString());
         cc.sys.localStorage.setItem('needGuide', this._needGuide);
-        cc.sys.localStorage.setItem('needDragTip', this._needDragTip);
     }
 
     static randPool: GroupType[] = [

@@ -5,6 +5,8 @@ import MatrixBodyBase from "./MatrixBodyBase";
 const { ccclass, property } = cc._decorator;
 @ccclass
 export default class ModelCube extends MatrixBodyBase {
+    @property(cc.Node)
+    public Shadow: cc.Node = null;
     @property(cc.Sprite)
     public SpriteCube: cc.Sprite = null;
 
@@ -45,6 +47,7 @@ export default class ModelCube extends MatrixBodyBase {
      */
     public pickUp(): void {
         this.node.setScale(1, 1, 1);
+        this.Shadow.active = false
     }
 
     /**
@@ -52,5 +55,6 @@ export default class ModelCube extends MatrixBodyBase {
      */
     public putDown(): void {
         this.node.setScale(1, 1, 1);
+        this.Shadow.active = true
     }
 }

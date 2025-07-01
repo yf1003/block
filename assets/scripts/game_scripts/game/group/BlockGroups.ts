@@ -20,7 +20,9 @@ export default class BlockGroups extends ContextComponent {
     @property(cc.Node)
     public itemLayer: cc.Node = null;
     @property(cc.Node)
-    public displayEffect: cc.Node = null;
+    public displayEffect1: cc.Node = null;
+    @property(cc.Node)
+    public displayEffect2: cc.Node = null;
 
     protected mIsGray: boolean = false;
     public set IsGray(is: boolean) {
@@ -136,15 +138,15 @@ export default class BlockGroups extends ContextComponent {
 
     public runInsertAction(): void {
         this.node.setPosition(this.mInitPositon)
-        this.displayEffect.active = true
 
-        const particle1 = this.displayEffect.getComponent(cc.ParticleSystem)
-        particle1.clear()
-        particle1.play()
-
-        const particle2 = this.displayEffect.children[0].getComponent(cc.ParticleSystem)
-        particle2.clear()
-        particle2.play()
+        this.displayEffect1.active = true
+        this.displayEffect2.active = true
+        const par1 = this.displayEffect1.getComponent(cc.ParticleSystem)
+        const par2 = this.displayEffect2.getComponent(cc.ParticleSystem)
+        par1.clear()
+        par2.clear()
+        par1.play()
+        par2.play()
 
         const defaultScale = LocalCommon.GROUP_SCALE
         this.node.setScale(0, 0, 1)
@@ -152,7 +154,8 @@ export default class BlockGroups extends ContextComponent {
             .to(this.node, 0.15, { scale: cc.v3(1.1 * defaultScale, 1.1 * defaultScale, 1) })
             .to(0.05, { scale: cc.v3(defaultScale, defaultScale, 1) })
             .call(() => {
-                this.displayEffect.active = false
+                this.displayEffect1.active = false
+                this.displayEffect2.active = false
             })
             .play()
     }

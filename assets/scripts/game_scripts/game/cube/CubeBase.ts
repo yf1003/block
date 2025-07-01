@@ -129,6 +129,7 @@ export default class CubeBase extends MatrixBodyBase {
         this.block.active = true
         this.tween = XTween
             .to(this.sprLight, 0.2, { opacity: 255 })
+            .delay(0.2)
             .to(0.1, { opacity: 55 })
             .set({ opacity: 0 })
             .play()
